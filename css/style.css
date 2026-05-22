@@ -1,0 +1,335 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Bahnschrift', sans-serif;
+}
+
+body {
+    background-color: #0f111a;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #161824;
+    padding: 0 40px; /* Sudah kita bersihin yang dobel tadi */
+    height: 64px;
+    border-bottom: 1px solid #2c2f3a;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.logo {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 24px;
+    height: 64px;
+}
+
+.nav-links li {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.nav-links a {
+    color: #838699; /* Sudah diperbaiki jadi 6 digit */
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #fff;
+}
+
+.nav-links li.active a {
+    color: #fff;
+}
+
+.nav-links li.active::after {
+    content: '';
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 3px;
+    background-color: #3b71fe;
+    border-radius: 2px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Sedikit penyesuaian biar tag <a> di kanan gak punya garis bawah */
+.txt-btn {
+    color: #838699;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none; /* Hilangin garis bawah link */
+    cursor: pointer;
+    align-items: right;
+    transition: color 0.2s;
+    padding: 4px 8px;
+}
+
+.txt-btn:hover {
+    color: #fff;
+}
+
+.hero-section{
+    position:relative;
+    width: 100%;
+    min-height: calc(100vh - 64px);
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/assets/img/banner.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-top: 64px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 24px;
+}
+
+.hero-content{
+    max-width: 800px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-title{
+    font-size: 48px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 24px;
+}
+
+.hero-subtitle {
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: #838699;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+.hero-highlight{
+    color: #3b71fe;
+}
+
+.hero-desc {
+    font-size: 18px;
+    color: #b3b6c2;
+    max-width: 600px;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.hero-btn{
+    display: inline-block;
+    border: 1px solid #fff;
+    padding: 12px 32px;
+    font-size: 14px;
+    color:#fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.hero-btn:hover {
+    background-color: #fff;
+    color: #0f111a;
+}
+
+/* --- PENGATURAN KONTEN HALAMAN BAWAH --- */
+
+/* Container pembungkus biar konten gak melebar terlalu mentok ke pinggir layar */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Base style untuk tiap section/bagian */
+.content-section {
+    padding: 100px 0; /* 💡 Ini kuncinya! Padding atas-bawah yang besar bikin web jadi panjang dan lega */
+    background-color: #0f111a; /* Warna gelap dasar */
+    text-align: center;
+}
+
+/* Beri warna background selang-seling biar gak bosen (Zebra Layout) */
+.content-section.alternate-bg {
+    background-color: #141724; /* Sedikit lebih terang dari warna dasar */
+}
+
+/* Judul tiap bagian */
+.section-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 24px;
+    position: relative;
+}
+
+/* Teks penjelasan */
+.section-text {
+    font-size: 18px;
+    color: #b3b6c2;
+    line-height: 1.8;
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+/* --- TATA LETAK GRID UNTUK KARTU POTENSI --- */
+.grid-potensi {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 50px;
+    flex-wrap: wrap; /* Biar kalau layarnya kecil/HP, otomatis turun ke bawah */
+}
+
+/* Kotak kartu potensi desa */
+.potensi-card {
+    background-color: #1c1f30;
+    border: 1px solid #2c2f3a;
+    padding: 30px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: left;
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.potensi-card:hover {
+    transform: translateY(-5px); /* Efek naik sedikit saat didekati mouse */
+    border-color: #3b71fe; /* Berubah jadi biru */
+}
+
+.potensi-card h3 {
+    color: #fff;
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+.potensi-card p {
+    color: #838699;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* --- CSS FOOTER PALING BAWAH --- */
+.main-footer {
+    background-color: #0b0c13;
+    padding: 30px 0;
+    text-align: center;
+    border-top: 1px solid #2c2f3a;
+}
+
+.main-footer p {
+    color: #575a6b;
+    font-size: 14px;
+}
+
+/* --- EASTER EGG CHIBI FOOTER --- */
+
+/* --- FOOTER (Paling Bawah) --- */
+.main-footer {
+    background-color: #0b0c13;
+    padding: 30px 0;
+    text-align: center;
+    border-top: 1px solid #2c2f3a;
+}
+
+/* 🥚 EASTER EGG CHIBI - Fixing Size and Alignment 🥚 */
+/* --- FOOTER (Paling Bawah) --- */
+.main-footer {
+    background-color: #0b0c13;
+    padding: 30px 0;
+    text-align: center;
+    border-top: 1px solid #2c2f3a;
+}
+
+/* Ensuring alignment with the text */
+.main-footer p {
+    color: #575a6b;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center; /* Vertically align image with text */
+    justify-content: center;
+    gap: 8px; /* Space between text and image */
+}
+
+/* 🥚 EASTER EGG CHIBI - Selalu Muncul & Imut 🥚 */
+.chibi-egg {
+    height: 40px;        /* Tingginya pas secuil ukuran font */
+    width: 40px;         /* Lebarnya dikunci biar proporsional */
+    object-fit: contain; /* Biar gambar chibinya gak gepeng */
+    
+    /* 💡 Opacity diganti jadi 1 biar selalu kelihatan */
+    opacity: 1; 
+    
+    vertical-align: middle;
+    margin-bottom: 2px;  /* Biar posisinya pas di tengah rata sama teks */
+    transition: transform 0.3s ease; /* Biar kalau di-hover tetep ada gerakan dikit */
+}
+
+/* ✨ Opsional: Kalau kursor dideketin, dia tetep bisa goyang dikit biar interaktif ✨ */
+.main-footer p:hover .chibi-egg {
+    transform: scale(1.2) rotate(5deg);
+}
+
+.logo {
+    display: flex;         /* 💡 Bikin gambar dan teks otomatis berjejer ke samping */
+    align-items: center;   /* Bikin gambar dan teks pas rata tengah secara vertikal */
+    gap: 12px;             /* Jarak spasi antara gambar logo dengan teks di kanannya */
+    text-decoration: none; /* Biar tulisan "Jaten Web" gak ada garis bawahnya */
+}
+
+.logo-img {
+    height: 40px;          /* Ukuran tinggi gambar logo tetap disetting ideal */
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.logo-text {
+    color: #fff;           /* Warna tulisan putih bersih */
+    font-size: 20px;       /* Sedikit dikecilkan ke 20px biar seimbang sama tinggi logo */
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+/* Efek opsional: Kalau area logo didekati kursor, mereka agak maju dikit barengan */
+.logo:hover .logo-img {
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
+}
