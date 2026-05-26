@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Desa - Jaten Web</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="assets/img/icon.png">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="index.html" class="logo">
+                <img src="assets/img/LOGO.webp" alt="logo desa jaten" class="logo-img">
+                <span class="logo-text">Jaten Web</span>
+            </a>
+        </div> 
+        <div class="nav-right">
+            <a href="index.html" class="txt-btn">Home</a>
+            <a href="gallery.html" class="txt-btn">Gallery</a>
+            <a href="profile.html" class="txt-btn active">Profile</a>
+            <div class="dropdown">
+                <button class="txt-btn dropdown-trigger">Download ▾</button>
+                <div class="dropdown-content">
+                    <a href="assets/surat/poster.pdf" download>🖼️ Download Poster Promosi</a>
+                    <a href="assets/surat/surat.pdf" download class="txt-btn">📄 Download Surat</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <header class="gallery-hero">
+        <div class="hero-content reveal">
+            <p class="hero-subtitle">Mengenal Lebih Dekat</p>
+            <h1 class="hero-title">Profil & Sejarah <span class="hero-highlight">Desa Jaten</span></h1>
+        </div>
+    </header>
+
+    <section class="content-section">
+        <div class="container reveal">
+            <h2 class="section-title">Sejarah Singkat</h2>
+            <p class="section-text">
+                Desa Jaten didirikan oleh para sesepuh yang mengagumi keasrian hutan jati (jaten) yang tumbuh subur di wilayah ini. Sejak jaman dahulu, masyarakat Jaten dikenal memegang teguh adat budaya gotong royong dan kelestarian alam, menjadikannya salah satu desa penyangga budaya yang tetap harmonis di era modern.
+            </p>
+        </div>
+    </section>
+
+    <section class="content-section alternate-bg">
+        <div class="container">
+            <h2 class="section-title reveal">Visi & Misi Desa</h2>
+            <div class="grid-potensi">
+                <div class="potensi-card reveal reveal-delay-1" style="padding: 24px; text-align: center;">
+                    <h3>🎯 Visi Utama</h3>
+                    <p>Terwujudnya Desa Jaten yang mandiri, sejahtera, dan unggul dalam sektor agrowisata berbasis kearifan lokal digital.</p>
+                </div>
+                <div class="potensi-card reveal reveal-delay-2" style="padding: 24px; text-align: left;">
+                    <h3>🚀 Misi Desa</h3>
+                    <p style="margin-bottom: 8px;">1. Meningkatkan pelayanan publik berbasis digital.</p>
+                    <p style="margin-bottom: 8px;">2. Melestarikan irigasi tradisional untuk pertanian organik.</p>
+                    <p>3. Mengembangkan UMKM lokal lewat publikasi kreatif.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Desa Jaten. All Rights Reserved. Created by Rahadiansyah Dava Ananda Irawan.
+            <img src="assets/img/mywife.webp" alt="Firefly Chibi" class="chibi-egg">
+        </p>
+    </footer>
+    <div class="hoyo-player" id="hoyoPlayer">
+        <audio id="main-audio" src="assets/music/song1.mp3"></audio>
+
+        <div class="player-container">
+            <div class="track-info">
+                <div class="track-disc" id="trackDisc">
+                    <img src="assets/img/mywife.webp" alt="Track Cover" id="playerCover">
+                </div>
+                <div class="track-details">
+                    <div class="track-title-wrapper">
+                        <h4 id="playerTitle">Robin - If I Can Stop One Heart From Breaking</h4>
+                    </div>
+                    <p id="playerArtist">Honkai: Star Rail</p>
+                </div>
+            </div>
+
+            <div class="track-lyrics-container" id="lyricsContainer">
+            </div>
+
+            <div class="player-controls-wrapper">
+                <div class="player-controls">
+                    <button class="ctrl-btn" id="btnPrev">
+                        <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+                    </button>
+                    <button class="ctrl-btn play-trigger" id="btnPlay">
+                        <svg viewBox="0 0 24 24" id="playIcon"><path d="M8 5v14l11-7z"/></svg>
+                    </button>
+                    <button class="ctrl-btn" id="btnNext">
+                        <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6zm9-12h2v12h-2z"/></svg>
+                    </button>
+                </div>
+                
+                <div class="progress-container" id="progressContainer">
+                    <span class="time-text" id="timeCurrent">00:00</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <span class="time-text" id="timeTotal">00:00</span>
+                    
+                    <button class="lyric-btn" id="btnLyrics" title="Tampilkan Lirik">
+                        <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm1-9h-2v2H9v2h2v2h2v-2h2v-2h-2z"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>

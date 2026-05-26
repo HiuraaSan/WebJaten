@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeri - Jaten Web</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="assets/img/icon.png">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="index.html" class="logo">
+                <img src="assets/img/LOGO.webp" alt="logo desa jaten" class="logo-img">
+                <span class="logo-text">Jaten Web</span>
+            </a>
+        </div> 
+        <div class="nav-right">
+            <a href="index.html" class="txt-btn">Home</a>
+            <a href="gallery.html" class="txt-btn active">Gallery</a>
+            <a href="profile.html" class="txt-btn">Profile</a>
+            <div class="dropdown">
+                <button class="txt-btn dropdown-trigger">Download ▾</button>
+                <div class="dropdown-content">
+                    <a href="assets/surat/poster.pdf" download>🖼️ Download Poster Promosi</a>
+                    <a href="assets/surat/surat.pdf" download class="txt-btn">📄 Download Surat</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <header class="gallery-hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Galeri <span class="hero-highlight">Desa Jaten</span></h1>
+            <p class="hero-subtitle">Dokumentasi keindahan alam, kegiatan warga, dan potensi lokal kami.</p>
+        </div>
+    </header>
+
+    <section class="content-section">
+        <div class="container">
+            
+            <div class="gallery-filter-wrapper">
+                <div class="gallery-filter-container">
+                    <button class="filter-btn active" data-target="desa">🏞️ Pemandangan Desa</button>
+                    <button class="filter-btn" data-target="logo">🎨 Pendesainan Logo</button>
+                    <div class="line-glider"></div>
+                </div>
+            </div>
+
+            <div class="gallery-grid">
+                
+                <div class="gallery-item reveal reveal-delay-1" data-category="desa" id="item-pertanian">
+                    <div class="gallery-img-wrapper">
+                        <img src="assets/img/pertanian.webp" alt="Sektor Pertanian">
+                    </div>
+                    <div class="gallery-info">
+                        <h3>🌾 Pertanian</h3>
+                        <p>Sistem irigasi subak modifikasi khas Desa Jaten yang menghasilkan padi organik kualitas unggul.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item reveal reveal-delay-2" data-category="desa" id="item-wisata">
+                    <div class="gallery-img-wrapper">
+                        <img src="assets/img/kolam.webp" alt="Wisata Alam">
+                    </div>
+                    <div class="gallery-info">
+                        <h3>🏞️ Wisata Kolam Renang</h3>
+                        <p>Keindahan tebing sungai hijau yang asri, sangat cocok untuk tracking sore dan spot foto estetik.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item reveal reveal-delay-3" data-category="logo" id="mindboard">
+                    <div class="gallery-img-wrapper">
+                        <img src="assets/img/Jaten/1.png" alt="mindmap">
+                    </div>
+                    <div class="gallery-info">
+                        <h3>Mind Map</h3>
+                    </div>
+                </div>
+
+                <div class="gallery-item reveal reveal-delay-3" data-category="logo" id="moodboard">
+                    <div class="gallery-img-wrapper">
+                        <img src="assets/img/Jaten/2.png" alt="Moodboard">
+                    </div>
+                    <div class="gallery-info">
+                        <h3>Mood Map</h3>
+                    </div>
+                </div>
+
+                <div class="gallery-item reveal reveal-delay-3" data-category="logo" id="logom">
+                    <div class="gallery-img-wrapper">
+                        <img src="assets/img/Jaten/3.png" alt="LogoM">
+                    </div>
+                    <div class="gallery-info">
+                        <h3>Logo Matriks</h3>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Desa Jaten. All Rights Reserved. Created by Rahadiansyah Dava Ananda Irawan.
+            <img src="assets/img/mywife.webp" alt="Firefly Chibi" class="chibi-egg">
+        </p>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <div class="lightbox-overlay" id="lightboxOverlay">
+        <div class="lightbox-window">
+            <button class="lightbox-close" id="lightboxClose">&times;</button>
+            
+            <div class="lightbox-content">
+                <div class="lightbox-left">
+                    <img src="" alt="Preview Gambar" id="lightboxImg">
+                </div>
+                <div class="lightbox-right">
+                    <h2 id="lightboxTitle">Judul Gambar</h2>
+                    <p id="lightboxDesc">Deskripsi lengkap dari foto galeri yang dipilih.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hoyo-player" id="hoyoPlayer">
+        <audio id="main-audio" src="assets/music/song1.mp3"></audio>
+
+        <div class="player-container">
+            <div class="track-info">
+                <div class="track-disc" id="trackDisc">
+                    <img src="assets/img/mywife.webp" alt="Track Cover" id="playerCover">
+                </div>
+                <div class="track-details">
+                    <div class="track-title-wrapper">
+                        <h4 id="playerTitle">Robin - If I Can Stop One Heart From Breaking</h4>
+                    </div>
+                    <p id="playerArtist">Honkai: Star Rail</p>
+                </div>
+            </div>
+
+            <div class="track-lyrics-container" id="lyricsContainer">
+            </div>
+
+            <div class="player-controls-wrapper">
+                <div class="player-controls">
+                    <button class="ctrl-btn" id="btnPrev">
+                        <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+                    </button>
+                    <button class="ctrl-btn play-trigger" id="btnPlay">
+                        <svg viewBox="0 0 24 24" id="playIcon"><path d="M8 5v14l11-7z"/></svg>
+                    </button>
+                    <button class="ctrl-btn" id="btnNext">
+                        <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6zm9-12h2v12h-2z"/></svg>
+                    </button>
+                </div>
+                
+                <div class="progress-container" id="progressContainer">
+                    <span class="time-text" id="timeCurrent">00:00</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <span class="time-text" id="timeTotal">00:00</span>
+                    
+                    <button class="lyric-btn" id="btnLyrics" title="Tampilkan Lirik">
+                        <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm1-9h-2v2H9v2h2v2h2v-2h2v-2h-2z"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>

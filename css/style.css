@@ -1,3 +1,6 @@
+/* ========================================================
+   1. BASE RESET & INITIALIZATION
+   ======================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -9,12 +12,15 @@ body {
     background-color: #0f111a;
 }
 
+/* ========================================================
+   2. NAVIGATION BAR SYSTEM (INTERACTIVE HOVER & ACTIVE)
+   ======================================================== */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #161824;
-    padding: 0 40px; /* Sudah kita bersihin yang dobel tadi */
+    padding: 0 40px;
     height: 64px;
     border-bottom: 1px solid #2c2f3a;
     position: fixed;
@@ -31,86 +37,109 @@ body {
 }
 
 .logo {
-    color: #fff;
-    font-size: 24px;
+    display: flex;         
+    align-items: center;   
+    gap: 12px;             
+    text-decoration: none; 
+}
+
+.logo-img {
+    height: 40px;          
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.logo-text {
+    color: #fff;           
+    font-size: 20px;       
     font-weight: bold;
-    text-decoration: none;
     letter-spacing: 0.5px;
 }
 
-.nav-links {
-    display: flex;
-    list-style: none;
-    gap: 24px;
-    height: 64px;
-}
-
-.nav-links li {
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-
-.nav-links a {
-    color: #838699; /* Sudah diperbaiki jadi 6 digit */
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 500;
-    transition: color 0.3s;
-}
-
-.nav-links a:hover {
-    color: #fff;
-}
-
-.nav-links li.active a {
-    color: #fff;
-}
-
-.nav-links li.active::after {
-    content: '';
-    position: absolute;
-    bottom: 12px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 16px;
-    height: 3px;
-    background-color: #3b71fe;
-    border-radius: 2px;
+.logo:hover .logo-img {
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
 }
 
 .nav-right {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 10px; 
+    height: 64px; 
 }
 
-/* Sedikit penyesuaian biar tag <a> di kanan gak punya garis bawah */
+/* Style dasar untuk tombol menu teks di navbar */
 .txt-btn {
     color: #838699;
     font-size: 15px;
-    font-weight: 500;
-    text-decoration: none; /* Hilangin garis bawah link */
+    font-weight: 600;
+    text-decoration: none; 
     cursor: pointer;
-    align-items: right;
-    transition: color 0.2s;
-    padding: 4px 8px;
+    transition: color 0.3s ease;
+    padding: 0 12px;
+    height: 100%; 
+    display: flex;
+    align-items: center; 
+    position: relative; /* Kunci posisi buat dua jenis garis bawah */
 }
 
+/* 💡 KUNCI 1: Efek pas menu didekati kursor (Hover) - Teks membiru dikit */
 .txt-btn:hover {
-    color: #fff;
+    color: #5b86fd; /* Birunya agak soft/muda sedikit dibanding warna aktif asli */
 }
 
-.hero-section{
-    position:relative;
+/* 💡 KUNCI 2: Bikin garis bawah HOVER yang lebih pendek menggunakan ::before */
+.txt-btn::before {
+    content: '';
+    position: absolute;
+    bottom: 12px;              /* Posisinya agak naik sedikit di bawah teks langsung */
+    left: 25%;                 /* Digeser dari kiri 25% */
+    width: 50%;                /* Lebarnya cuma 50% dari panjang teks (lebih pendek!) */
+    height: 2px;               /* Lebih tipis dan halus */
+    background-color: #5b86fd; /* Warna sesuai hover teks */
+    border-radius: 1px;
+    
+    /* Animasi muncul memanjang dari tengah */
+    transform: scaleX(0); 
+    transition: transform 0.3s ease;
+}
+
+/* Jalankan garis pendeknya pas di-hover (tapi cuma buat menu yang GAK aktif) */
+.txt-btn:not(.active):hover::before {
+    transform: scaleX(1);
+}
+
+/* 💡 KUNCI 3: Pas menu AKTIF di halaman tersebut (Tetap Penuh & Tegas) */
+.txt-btn.active {
+    color: #3b71fe !important; /* Warna biru jernih utama */
+}
+
+/* Garis bawah penanda halaman aktif di batas paling bawah navbar */
+.txt-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;                /* Pas menempel di batas bawah navbar */
+    left: 12px;               
+    right: 12px;              /* Lebar penuh mengikuti padding teks */
+    height: 3px;              /* Lebih tebal */
+    background-color: #3b71fe;
+    border-radius: 2px 2px 0 0; 
+}
+
+/* ========================================================
+   3. HERO SECTION (HOME HALAMAN UTAMA)
+   ======================================================== */
+.hero-section {
+    position: relative;
     width: 100%;
     min-height: calc(100vh - 64px);
-    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://hiuraasan.github.io/WebJaten/assets/img/banner.webp');
+    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('../assets/img/banner.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     margin-top: 64px;
-    display:flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -118,14 +147,14 @@ body {
     padding: 0 24px;
 }
 
-.hero-content{
+.hero-content {
     max-width: 800px;
-    display:flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.hero-title{
+.hero-title {
     font-size: 48px;
     font-weight: 800;
     color: #fff;
@@ -141,7 +170,7 @@ body {
     margin-bottom: 16px;
 }
 
-.hero-highlight{
+.hero-highlight {
     color: #3b71fe;
 }
 
@@ -153,12 +182,12 @@ body {
     line-height: 1.6;
 }
 
-.hero-btn{
+.hero-btn {
     display: inline-block;
     border: 1px solid #fff;
     padding: 12px 32px;
     font-size: 14px;
-    color:#fff;
+    color: #fff;
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -170,28 +199,25 @@ body {
     color: #0f111a;
 }
 
-/* --- PENGATURAN KONTEN HALAMAN BAWAH --- */
-
-/* Container pembungkus biar konten gak melebar terlalu mentok ke pinggir layar */
+/* ========================================================
+   4. CONTENT LAYOUT & MAIN CONTAINER
+   ======================================================== */
 .container {
     max-width: 1000px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* Base style untuk tiap section/bagian */
 .content-section {
-    padding: 100px 0; /* 💡 Ini kuncinya! Padding atas-bawah yang besar bikin web jadi panjang dan lega */
-    background-color: #0f111a; /* Warna gelap dasar */
+    padding: 100px 0; 
+    background-color: #0f111a; 
     text-align: center;
 }
 
-/* Beri warna background selang-seling biar gak bosen (Zebra Layout) */
 .content-section.alternate-bg {
-    background-color: #141724; /* Sedikit lebih terang dari warna dasar */
+    background-color: #141724; 
 }
 
-/* Judul tiap bagian */
 .section-title {
     font-size: 36px;
     font-weight: 700;
@@ -200,7 +226,6 @@ body {
     position: relative;
 }
 
-/* Teks penjelasan */
 .section-text {
     font-size: 18px;
     color: #b3b6c2;
@@ -209,44 +234,194 @@ body {
     margin: 0 auto;
 }
 
-/* --- TATA LETAK GRID UNTUK KARTU POTENSI --- */
+/* ========================================================
+   5. GRID & POTENSI CARD SYSTEM
+   ======================================================== */
 .grid-potensi {
     display: flex;
     justify-content: center;
     gap: 30px;
     margin-top: 50px;
-    flex-wrap: wrap; /* Biar kalau layarnya kecil/HP, otomatis turun ke bawah */
+    flex-wrap: wrap; 
 }
 
-/* Kotak kartu potensi desa */
 .potensi-card {
     background-color: #1c1f30;
     border: 1px solid #2c2f3a;
-    padding: 30px;
     border-radius: 8px;
     width: 300px;
     text-align: left;
     transition: transform 0.3s, border-color 0.3s;
+    padding-bottom: 30px; 
+    cursor: pointer; /* 💡 TAMBAHAN: Biar pas diarahin mouse, kursornya jadi lambang jari klik */
 }
 
 .potensi-card:hover {
-    transform: translateY(-5px); /* Efek naik sedikit saat didekati mouse */
-    border-color: #3b71fe; /* Berubah jadi biru */
+    transform: translateY(-5px); 
+    border-color: #3b71fe; 
 }
 
 .potensi-card h3 {
     color: #fff;
     font-size: 20px;
-    margin-bottom: 12px;
+    margin: 20px 20px 12px 20px;
 }
 
 .potensi-card p {
     color: #838699;
     font-size: 14px;
     line-height: 1.6;
+    margin: 0 20px;
 }
 
-/* --- CSS FOOTER PALING BAWAH --- */
+.potensi-img-wrapper {
+    width: 100%;
+    height: 180px;      
+    overflow: hidden;    
+    border-radius: 8px 8px 0 0; 
+    margin-bottom: 10px; 
+}
+
+.potensi-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    transform: scale(1); 
+    transition: transform 0.5s ease;
+}
+
+.potensi-img:hover {
+    transform: scale(1.08); 
+    cursor: pointer;
+}
+
+/* ========================================================
+   6. GALLERY PAGE SPECIFIC STYLING
+   ======================================================== */
+.gallery-hero {
+    width: 100%;
+    min-height: 40vh; 
+    margin-top: 64px; 
+    background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('../assets/img/banner.webp');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 24px;
+}
+
+.gallery-filter-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.gallery-filter-container {
+    display: inline-flex;    
+    justify-content: center;
+    gap: 40px;               
+    position: relative;      
+    padding-bottom: 12px;    
+}
+
+.filter-btn {
+    background: none;
+    border: none;
+    color: #838699;
+    font-size: 20px;         
+    font-weight: 700;        
+    cursor: pointer;
+    padding: 6px 10px;       
+    transition: color 0.3s ease;
+    white-space: nowrap;     
+}
+
+.filter-btn:hover {
+    color: #fff;
+}
+
+.filter-btn.active {
+    color: #3b71fe;          
+}
+
+.line-glider {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;             
+    background-color: #3b71fe;
+    border-radius: 2px;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), width 0.3s ease;
+    pointer-events: none;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 25px; 
+    padding: 20px 0;
+}
+
+.gallery-item {
+    background-color: #1c1f30;
+    border: 1px solid #2c2f3a;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px);
+    border-color: #3b71fe;
+}
+
+.gallery-img-wrapper {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+}
+
+.gallery-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gallery-img-wrapper img:hover {
+    transform: scale(1.08);
+    cursor: pointer;
+}
+
+.gallery-info {
+    padding: 20px;
+    text-align: left;
+}
+
+.gallery-info h3 {
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.gallery-info p {
+    color: #838699;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.gallery-item.hide {
+    display: none !important;
+}
+
+/* ========================================================
+   7. MAIN FOOTER & EASTER EGG CHIBI
+   ======================================================== */
 .main-footer {
     background-color: #0b0c13;
     padding: 30px 0;
@@ -254,82 +429,511 @@ body {
     border-top: 1px solid #2c2f3a;
 }
 
-.main-footer p {
-    color: #575a6b;
-    font-size: 14px;
-}
-
-/* --- EASTER EGG CHIBI FOOTER --- */
-
-/* --- FOOTER (Paling Bawah) --- */
-.main-footer {
-    background-color: #0b0c13;
-    padding: 30px 0;
-    text-align: center;
-    border-top: 1px solid #2c2f3a;
-}
-
-/* 🥚 EASTER EGG CHIBI - Fixing Size and Alignment 🥚 */
-/* --- FOOTER (Paling Bawah) --- */
-.main-footer {
-    background-color: #0b0c13;
-    padding: 30px 0;
-    text-align: center;
-    border-top: 1px solid #2c2f3a;
-}
-
-/* Ensuring alignment with the text */
 .main-footer p {
     color: #575a6b;
     font-size: 14px;
     display: inline-flex;
-    align-items: center; /* Vertically align image with text */
+    align-items: center; 
     justify-content: center;
-    gap: 8px; /* Space between text and image */
+    gap: 8px; 
 }
 
-/* 🥚 EASTER EGG CHIBI - Selalu Muncul & Imut 🥚 */
 .chibi-egg {
-    height: 40px;        /* Tingginya pas secuil ukuran font */
-    width: 40px;         /* Lebarnya dikunci biar proporsional */
-    object-fit: contain; /* Biar gambar chibinya gak gepeng */
-    
-    /* 💡 Opacity diganti jadi 1 biar selalu kelihatan */
+    height: 40px;        
+    width: 40px;         
+    object-fit: contain; 
     opacity: 1; 
-    
     vertical-align: middle;
-    margin-bottom: 2px;  /* Biar posisinya pas di tengah rata sama teks */
-    transition: transform 0.3s ease; /* Biar kalau di-hover tetep ada gerakan dikit */
+    margin-bottom: 2px;  
+    transition: transform 0.3s ease; 
 }
 
-/* ✨ Opsional: Kalau kursor dideketin, dia tetep bisa goyang dikit biar interaktif ✨ */
 .main-footer p:hover .chibi-egg {
     transform: scale(1.2) rotate(5deg);
 }
 
-.logo {
-    display: flex;         /* 💡 Bikin gambar dan teks otomatis berjejer ke samping */
-    align-items: center;   /* Bikin gambar dan teks pas rata tengah secara vertikal */
-    gap: 12px;             /* Jarak spasi antara gambar logo dengan teks di kanannya */
-    text-decoration: none; /* Biar tulisan "Jaten Web" gak ada garis bawahnya */
+/* ========================================================
+   8. MODERN LIGHTBOX MODAL SYSTEM (PERBAIKAN DISPLAY NONE)
+   ======================================================== */
+.lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 11, 20, 0.85); 
+    backdrop-filter: blur(8px); 
+    z-index: 2000; 
+    
+    /* 💡 SOLUSI: Disembunyikan total di awal biar gak nge-blok klik galeri */
+    display: none; 
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
 }
 
-.logo-img {
-    height: 40px;          /* Ukuran tinggi gambar logo tetap disetting ideal */
-    width: auto;
-    object-fit: contain;
+/* Jendela yang bakal melebar dan membesar pas aktif */
+.lightbox-window {
+    background-color: #161824;
+    border: 1px solid #2c2f3a;
+    width: 90%;
+    max-width: 850px;
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+    
+    /* Keadaan awal animasi: Agak mengecil */
+    transform: scale(0.85);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Dipanggil bareng JavaScript lewat efek Transisi */
+.lightbox-overlay.show {
+    opacity: 1;
+}
+
+.lightbox-overlay.show .lightbox-window {
+    transform: scale(1); /* Efek mengembang melebar rapi ala Canva */
+}
+
+/* Tombol Tutup Silang */
+.lightbox-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #838699;
+    font-size: 32px;
+    cursor: pointer;
+    transition: color 0.2s, transform 0.2s;
+    z-index: 10;
+}
+
+.lightbox-close:hover {
+    color: #fff;
+    transform: scale(1.1);
+}
+
+/* Tata Letak Konten Pop-up */
+.lightbox-content {
+    display: flex;
+    flex-wrap: wrap; 
+}
+
+.lightbox-left {
+    flex: 1.2;
+    min-width: 300px;
+    height: 400px;
+    background-color: #0f111a;
+}
+
+.lightbox-left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+.lightbox-right {
+    flex: 1;
+    min-width: 280px;
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+.lightbox-right h2 {
+    color: #fff;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    line-height: 1.3;
+}
+
+.lightbox-right p {
+    color: #b3b6c2;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* Responsif untuk Layar HP */
+@media (max-width: 650px) {
+    .lightbox-left {
+        height: 250px;
+    }
+    .lightbox-right {
+        padding: 25px 20px;
+    }
+    .lightbox-right h2 {
+        font-size: 20px;
+    }
+}
+
+/* ========================================================
+   9. ENTRANCE REVEAL ANIMATION (SLIDE UP + FADE IN)
+   ======================================================== */
+/* Status awal: Tersembunyi di bawah & transparan */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    visibility: hidden;
+}
+
+/* Status akhir: Muncul di posisi asli */
+.reveal.active-reveal {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+}
+
+/* Efek Staggered (Muncul bergantian satu per satu pada kartu grid) */
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ========================================================
+   10. NAVBAR DROPDOWN SYSTEM
+   ======================================================== */
+/* Wadah utama dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    height: 100%; /* Biar tingginya sama rata dengan navbar */
+}
+
+/* Mengubah sifat button dropdown agar mirip dengan txt-btn lainnya */
+.dropdown-trigger {
+    background: none;
+    border: none;
+    font-family: inherit;
+    height: 100%;
+}
+
+/* Kotak isi menu dropdown (tersembunyi di awal) */
+.dropdown-content {
+    display: block;
+    position: absolute;
+    top: 64px; /* Pas di bawah batas navbar */
+    right: 0;   /* Rata kanan biar rapi gak keluar layar */
+    background-color: #161824;
+    min-width: 220px;
+    border: 1px solid #2c2f3a;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+    
+    /* Efek Animasi Meluncur Halus & Fade In */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    z-index: 2000;
+}
+
+/* Isi link di dalam dropdown */
+.dropdown-content a {
+    color: #838699;
+    padding: 14px 20px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+/* Pas opsi menu dropdown didekati kursor */
+.dropdown-content a:hover {
+    background-color: #1c1f30;
+    color: #3b71fe; /* Teks berubah jadi biru khas Jaten Web */
+}
+
+/* 💡 KUNCI UTAMA: Munculkan dropdown pas wadah .dropdown di-hover */
+.dropdown:hover .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* ========================================================
+   11. HOYOLAB THEMED MUSIC PLAYER STYLE (PERBAIKAN TOTAL)
+   ======================================================== */
+.hoyo-player {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    background-color: #1b1e2d;
+    border: 1px solid #2e344d;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    z-index: 3000;
+    width: 360px;
+    height: 125px; /* Tinggi default mode ciut */
+    overflow: hidden;
+    transition: height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Mode memanjang ke atas pas lirik dibuka */
+.hoyo-player.expanded {
+    height: 380px; 
+}
+
+.player-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+}
+
+/* 11.1 Info Lagu (Atas) */
+.track-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.track-disc {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid #4a9bff;
+    overflow: hidden;
+    flex-shrink: 0;
+    animation: rotateDisc 5s linear infinite;
+    animation-play-state: paused;
+}
+
+@keyframes rotateDisc {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.track-disc img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.track-details {
+    overflow: hidden;
+}
+
+.track-title-wrapper h4 {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 2px;
+}
+
+#playerArtist {
+    color: #79819a;
+    font-size: 11px;
+}
+
+/* 11.2 Wadah Lirik Tengah (Hanya muncul pas .expanded) */
+.track-lyrics-container {
+    flex: 1;
+    margin: 12px 0;
+    padding: 12px;
+    background-color: #131520;
+    border-radius: 8px;
+    border: 1px solid #24293a;
+    overflow-y: auto;
+    display: none;
+    text-align: center;
+}
+
+.hoyo-player.expanded .track-lyrics-container {
     display: block;
 }
 
-.logo-text {
-    color: #fff;           /* Warna tulisan putih bersih */
-    font-size: 20px;       /* Sedikit dikecilkan ke 20px biar seimbang sama tinggi logo */
-    font-weight: bold;
-    letter-spacing: 0.5px;
+.lyric-line {
+    color: #5d667e;
+    font-size: 12px;
+    margin-bottom: 8px;
+    font-weight: 600;
 }
 
-/* Efek opsional: Kalau area logo didekati kursor, mereka agak maju dikit barengan */
-.logo:hover .logo-img {
-    transform: scale(1.05);
-    transition: transform 0.2s ease;
+.lyric-line.active-lyric {
+    color: #4a9bff;
+    text-shadow: 0 0 8px rgba(74, 155, 255, 0.4);
+}
+
+/* 11.3 Bagian Bawah: Baris Kontroler Utama */
+.player-controls-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Membagi kiri (tombol) dan kanan (progress) */
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid #2e344d;
+}
+
+/* Tombol navigasi musik (Prev, Play, Next) */
+.player-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ctrl-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ctrl-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: #79819a;
+    transition: fill 0.2s;
+}
+
+.ctrl-btn:hover svg {
+    fill: #4a9bff;
+}
+
+/* Tombol play dibuat lingkarannya menonjol */
+.play-trigger svg {
+    width: 24px;
+    height: 24px;
+    fill: #4a9bff;
+}
+
+/* Wadah Bar Durasi di Sisi Kanan */
+.progress-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 4px;
+    background-color: #2e344d;
+    border-radius: 2px;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #4a9bff, #00ffcc);
+    border-radius: 2px;
+}
+
+.time-text {
+    color: #5d667e;
+    font-size: 10px;
+    min-width: 28px;
+}
+
+/* 11.4 Tombol Pemicu Lirik (Berada di pojok kanan bawah) */
+.lyric-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+/* ========================================================
+   11.1 HOYOLAB PLAYER UTILITIES & ANIMATIONS (ADDITIONAL)
+   ======================================================== */
+/* 💡 Animasi piringan hitam berputar */
+@keyframes rotateDisc {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.track-disc {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid #4a9bff; /* Cyan Khas HoyoLab */
+    overflow: hidden;
+    flex-shrink: 0; /* Biar gak gepeng pas teks kepanjangan */
+    animation: rotateDisc 5s linear infinite;
+    animation-play-state: paused; /* Jalan cuma pas musik play */
+}
+
+.track-disc img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Memastikan ukuran icon kontrol pas di dalam tombol lingkaran */
+.ctrl-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: #79819a;
+    transition: fill 0.2s, transform 0.2s;
+}
+
+.ctrl-btn:hover svg {
+    fill: #4a9bff;
+}
+
+/* Tombol Play/Pause dibuat sedikit lebih menonjol */
+.play-trigger svg {
+    width: 26px;
+    height: 26px;
+    fill: #4a9bff;
+}
+
+.play-trigger:hover svg {
+    fill: #00ffcc;
+    transform: scale(1.1);
+}
+
+/* Mengatur kursor pointer untuk semua tombol di player */
+.ctrl-btn, .lyric-btn {
+    cursor: pointer;
+}}
+
+/* ========================================================
+   11.5 PERBAIKAN TOTAL: MENYEMBUNYIKAN SCROLLBAR LIRIK
+   ======================================================== */
+
+/* 💡 Langkah 1: Atur wadah lirik agar fiturnya aktif tapi scrollbar-nya "tipis" */
+.track-lyrics-container {
+    /* ... (kode margin, padding, border lainnya tetap sama ya) ... */
+    
+    overflow-y: auto; /* Fitur scroll tetap wajib aktif */
+    
+    /* Properti khusus untuk browser Firefox agar scrollbar-nya hilang */
+    scrollbar-width: none; 
+}
+
+/* 💡 Langkah 2: Sembunyikan visual scrollbar untuk browser berbasis Webkit (Chrome, Edge, Safari, Opera) */
+.track-lyrics-container::-webkit-scrollbar {
+    width: 0;           /* Lebarnya dibuat NOL */
+    height: 0;          /* Tingginya dibuat NOL */
+    background: transparent; /* Latar belakang transparan penuh */
+}
+
+/* 💡 Langkah 3 (Opsional): Hapus thumb dan track agar benar-benar bersih */
+.track-lyrics-container::-webkit-scrollbar-thumb,
+.track-lyrics-container::-webkit-scrollbar-track {
+    background: transparent;
+    border: none;
 }
