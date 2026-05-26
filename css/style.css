@@ -937,3 +937,87 @@ body {
     background: transparent;
     border: none;
 }
+
+/* Styling Tombol Minimize */
+.btn-minimize {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 10;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+.btn-minimize:hover {
+    opacity: 1;
+}
+
+/* 📱 LOGIKA KETIKA PLAYER MENGECEKIL (MINIMIZED) */
+.hoyo-player.minimized {
+    width: 70px;               /* Sisa ukuran bulat cakram aja */
+    height: 70px;
+    border-radius: 50%;        /* Bikin melingkar di pojok */
+    padding: 0;
+    overflow: hidden;
+    bottom: 20px;
+    right: 20px;               /* Posisikan manis di pojok kanan bawah */
+    left: auto;                /* Biar ga ngelebar penuh */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+/* Sembunyikan elemen lain di dalam player saat posisi mengecil */
+.hoyo-player.minimized .player-container,
+.hoyo-player.minimized .track-lyrics-container {
+    display: none !important;
+}
+
+/* Biar piringan hitamnya tetap kelihatan kecil & berputar di pojok saat minimize */
+.hoyo-player.minimized .track-info {
+    display: flex !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.hoyo-player.minimized .track-disc {
+    width: 60px !important;
+    height: 60px !important;
+    margin: 0 !important;
+    cursor: pointer;          /* Biar user tau kalau ini bisa diklik lagi */
+}
+
+.hoyo-player.minimized .track-details,
+.hoyo-player.minimized .player-controls-wrapper {
+    display: none !important;
+}
+
+/* Ubah tombol minimize jadi tanda (+) saat mengecil */
+.hoyo-player.minimized .btn-minimize {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    background: rgba(0, 0, 0, 0.5); /* Kasih background gelap transparan biar kelihatan */
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    opacity: 0;                    /* Sembunyikan dulu, muncul pas di-hover/tap */
+}
+
+.hoyo-player.minimized:hover .btn-minimize {
+    opacity: 1;
+}
