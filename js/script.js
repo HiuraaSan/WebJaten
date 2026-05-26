@@ -441,3 +441,41 @@ if (btnLyrics && hoyoPlayer) {
         }
     });
 }
+
+// ========================================================
+// G. LOGIKA MINIMIZE PLAYER UNTUK USER MOBILE/ANDROID
+// ========================================================
+const btnMinimize = document.getElementById("btnMinimize");
+const currentHoyoPlayer = document.getElementById("hoyoPlayer");
+const trackDiscClick = document.getElementById("trackDisc");
+
+if (btnMinimize && currentHoyoPlayer) {
+    // Fungsi untuk mengubah status besar/kecil
+    const toggleMinimize = () => {
+        currentHoyoPlayer.classList.toggle("minimized");
+        
+        // Ubah teks tombolnya, kalau mengecil jadi (+), kalau membesar jadi (minus)
+        if (currentHoyoPlayer.classList.contains("minimized")) {
+            btnMinimize.textContent = "+";
+            btnMinimize.setAttribute("title", "Maximize Player");
+        } else {
+            btnMinimize.textContent = "−";
+            btnMinimize.setAttribute("title", "Minimize Player");
+        }
+    };
+
+    // Klik tombol minus/plus untuk minimize
+    btnMinimize.addEventListener("click", (e) => {
+        e.stopPropagation(); // Biar efek klik ga tabrakan
+        toggleMinimize();
+    });
+
+    // 💡 Tambahan: Kalau lagi mengecil, klik piringan hitamnya juga bisa buat membesarkan lagi
+    if (trackDiscClick) {
+        trackDiscClick.addEventListener("click", () => {
+            if (currentHoyoPlayer.classList.contains("minimized")) {
+                toggleMinimize();
+            }
+        });
+    }
+}
