@@ -16,9 +16,10 @@ function moveGlider(activeButton) {
 if (filterButtons.length > 0 && galleryItems.length > 0) {
     setTimeout(() => {
         const currentActive = document.querySelector(".filter-btn.active");
-        moveGlider(currentActive);
+        if (currentActive) moveGlider(currentActive);
     }, 100);
 
+    // Set default view: hanya tampilkan kategori "desa" di awal
     galleryItems.forEach(item => {
         const category = item.getAttribute("data-category");
         if (category !== "desa") {
@@ -27,7 +28,7 @@ if (filterButtons.length > 0 && galleryItems.length > 0) {
     });
 
     filterButtons.forEach(button => {
-        button.addEventListener("click", (e) => {
+        button.addEventListener("click", () => {
             filterButtons.forEach(btn => btn.classList.remove("active"));
             button.classList.add("active");
             moveGlider(button);
@@ -45,8 +46,8 @@ if (filterButtons.length > 0 && galleryItems.length > 0) {
     });
 
     window.addEventListener("resize", () => {
-        const currentActive = document.querySelectorAll(".filter-btn.active")[0];
-        moveGlider(currentActive);
+        const currentActive = document.querySelector(".filter-btn.active");
+        if (currentActive) moveGlider(currentActive);
     });
 }
 
@@ -59,11 +60,11 @@ const lightboxTitle = document.getElementById("lightboxTitle");
 const lightboxDesc = document.getElementById("lightboxDesc");
 const lightboxClose = document.getElementById("lightboxClose");
 
-const allGalleryItems = document.querySelectorAll(".gallery-item");
 const allPotensiCards = document.querySelectorAll(".potensi-card");
 
 if (lightboxOverlay) {
     function openPopup(imgSrc, titleText, descText) {
+        if (!lightboxImg || !lightboxTitle || !lightboxDesc) return;
         lightboxImg.setAttribute("src", imgSrc);
         lightboxTitle.innerText = titleText;
         lightboxDesc.innerText = descText;
@@ -74,27 +75,38 @@ if (lightboxOverlay) {
         }, 10);
     }
 
-    if (allGalleryItems.length > 0) {
-        allGalleryItems.forEach(item => {
+    // 💡 PENGAMAN: Deteksi klik item galeri dengan pengecekan elemen internal biar ga null-error
+    if (galleryItems.length > 0) {
+        galleryItems.forEach(item => {
             item.addEventListener("click", () => {
-                const imgSrc = item.querySelector(".gallery-img-wrapper img").getAttribute("src");
-                const titleText = item.querySelector(".gallery-info h3").innerText;
+                const imgEl = item.querySelector(".gallery-img-wrapper img");
+                const titleEl = item.querySelector(".gallery-info h3");
                 const pTag = item.querySelector(".gallery-info p");
-                const descText = pTag ? pTag.innerText : "Dokumentasi resmi pengerjaan aset digital Desa Jaten.";
                 
-                openPopup(imgSrc, titleText, descText);
+                if (imgEl && titleEl) {
+                    const imgSrc = imgEl.getAttribute("src");
+                    const titleText = titleEl.innerText;
+                    const descText = pTag ? pTag.innerText : "Dokumentasi resmi pengerjaan aset digital Desa Jaten.";
+                    openPopup(imgSrc, titleText, descText);
+                }
             });
         });
     }
 
+    // 💡 PENGAMAN: Deteksi klik potensi-card dengan pengecekan elemen internal
     if (allPotensiCards.length > 0) {
         allPotensiCards.forEach(card => {
             card.addEventListener("click", () => {
-                const imgSrc = card.querySelector(".potensi-img-wrapper img").getAttribute("src");
-                const titleText = card.querySelector("h3").innerText;
-                const descText = card.querySelector("p").innerText;
-                
-                openPopup(imgSrc, titleText, descText);
+                const imgEl = card.querySelector(".potensi-img-wrapper img");
+                const titleEl = card.querySelector("h3");
+                const pTag = card.querySelector("p");
+
+                if (imgEl && titleEl && pTag) {
+                    const imgSrc = imgEl.getAttribute("src");
+                    const titleText = titleEl.innerText;
+                    const descText = pTag.innerText;
+                    openPopup(imgSrc, titleText, descText);
+                }
             });
         });
     }
@@ -126,6 +138,7 @@ if (lightboxOverlay) {
 // ========================================================
 function triggerReveal() {
     const reveals = document.querySelectorAll(".reveal");
+    if (reveals.length === 0) return;
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -140,7 +153,6 @@ function triggerReveal() {
 
     reveals.forEach(el => observer.observe(el));
 }
-
 document.addEventListener("DOMContentLoaded", triggerReveal);
 
 // ========================================================
@@ -204,7 +216,6 @@ const btnPrev = document.getElementById("btnPrev");
 const btnNext = document.getElementById("btnNext");
 const trackDisc = document.getElementById("trackDisc");
 const progressFill = document.getElementById("progressFill");
-const progressContainer = document.getElementById("progressContainer");
 const timeCurrent = document.getElementById("timeCurrent");
 const timeTotal = document.getElementById("timeTotal");
 
@@ -251,18 +262,19 @@ function renderLyrics(lyricsArray) {
 }
 
 function loadTrack(index) {
-    if (!playlist[index]) return; 
+    if (!playlist[index] || !audio) return; 
     const track = playlist[index];
     audio.src = track.src;
-    playerTitle.textContent = track.title;
-    playerArtist.textContent = track.artist;
-    playerCover.src = track.cover;
+    if (playerTitle) playerTitle.textContent = track.title;
+    if (playerArtist) playerArtist.textContent = track.artist;
+    if (playerCover) playerCover.src = track.cover;
     
     parsedLyrics = parseLRC(track.lrc);
     renderLyrics(parsedLyrics);
 }
 
 function togglePlay() {
+    if (!audio) return;
     if (isPlaying) {
         audio.pause();
         if (trackDisc) trackDisc.style.animationPlayState = "paused";
@@ -284,64 +296,67 @@ function togglePlay() {
     }
 }
 
-audio.addEventListener("timeupdate", () => {
-    const currentTime = audio.currentTime;
-    const duration = audio.duration || 0;
-    
-    const progressPercent = (currentTime / duration) * 100;
-    if (progressFill) progressFill.style.width = `${progressPercent}%`;
-    
-    let curMins = Math.floor(currentTime / 60);
-    let curSecs = Math.floor(currentTime % 60);
-    let durMins = Math.floor(duration / 60);
-    let durSecs = Math.floor(duration % 60);
-    
-    if (curSecs < 10) curSecs = "0" + curSecs;
-    if (durSecs < 10) durSecs = "0" + durSecs;
-    
-    if (timeCurrent) timeCurrent.textContent = `${curMins}:${curSecs}`;
-    if (timeTotal) timeTotal.textContent = `${durMins}:${durSecs}`;
-
-    // 💡 SINKRONISASI BARU: Simpan posisi detik berjalan ke localStorage setiap detik secara real-time
-    if (currentTime > 0) {
-        localStorage.setItem("jaten_track_time", currentTime);
-    }
-
-    if (parsedLyrics.length > 0 && lyricsContainer) {
-        let activeIndex = -1;
+if (audio) {
+    audio.addEventListener("timeupdate", () => {
+        const currentTime = audio.currentTime;
+        const duration = audio.duration || 0;
         
-        for (let i = 0; i < parsedLyrics.length; i++) {
-            if (currentTime >= parsedLyrics[i].time) {
-                activeIndex = i;
-            } else {
-                break;
-            }
+        const progressPercent = (currentTime / duration) * 100;
+        if (progressFill) progressFill.style.width = `${progressPercent}%`;
+        
+        let curMins = Math.floor(currentTime / 60);
+        let curSecs = Math.floor(currentTime % 60);
+        let durMins = Math.floor(duration / 60);
+        let durSecs = Math.floor(duration % 60);
+        
+        if (curSecs < 10) curSecs = "0" + curSecs;
+        if (durSecs < 10) durSecs = "0" + durSecs;
+        
+        if (timeCurrent) timeCurrent.textContent = `${curMins}:${curSecs}`;
+        if (timeTotal) timeTotal.textContent = `${durMins}:${durSecs}`;
+
+        if (currentTime > 0) {
+            localStorage.setItem("jaten_track_time", currentTime);
         }
-        
-        if (activeIndex !== -1) {
-            const allLines = lyricsContainer.querySelectorAll(".lyric-line");
-            allLines.forEach(line => line.classList.remove("active-reveal", "active-lyric"));
+
+        if (parsedLyrics.length > 0 && lyricsContainer) {
+            let activeIndex = -1;
+            for (let i = 0; i < parsedLyrics.length; i++) {
+                if (currentTime >= parsedLyrics[i].time) {
+                    activeIndex = i;
+                } else {
+                    break;
+                }
+            }
             
-            const activeLine = lyricsContainer.querySelector(`[data-index="${activeIndex}"]`);
-            if (activeLine) {
-                activeLine.classList.add("active-lyric");
+            if (activeIndex !== -1) {
+                const allLines = lyricsContainer.querySelectorAll(".lyric-line");
+                allLines.forEach(line => line.classList.remove("active-reveal", "active-lyric"));
                 
-                const hoyoPlayer = document.getElementById("hoyoPlayer");
-                if (hoyoPlayer && hoyoPlayer.classList.contains("expanded")) {
-                    activeLine.scrollIntoView({
-                        behavior: "smooth",
-                        block: "center"
-                    });
+                const activeLine = lyricsContainer.querySelector(`[data-index="${activeIndex}"]`);
+                if (activeLine) {
+                    activeLine.classList.add("active-lyric");
+                    
+                    const hoyoPlayer = document.getElementById("hoyoPlayer");
+                    if (hoyoPlayer && hoyoPlayer.classList.contains("expanded")) {
+                        activeLine.scrollIntoView({
+                            behavior: "smooth",
+                            block: "center"
+                        });
+                    }
                 }
             }
         }
-    }
-});
+    });
 
-// Klik progress bar murni akurat 100%
+    audio.addEventListener("ended", () => {
+        audio.currentTime = 0;
+        audio.play();
+    });
+}
+
 const actualProgressBar = document.querySelector(".progress-bar");
-
-if (actualProgressBar) {
+if (actualProgressBar && audio) {
     actualProgressBar.addEventListener("click", (e) => {
         const rect = actualProgressBar.getBoundingClientRect();
         const clickX = e.clientX - rect.left;
@@ -354,24 +369,19 @@ if (actualProgressBar) {
     });
 }
 
-if (btnNext) {
+if (btnNext && audio) {
     btnNext.addEventListener("click", () => {
         audio.currentTime = 0;
         if (isPlaying) audio.play();
     });
 }
 
-if (btnPrev) {
+if (btnPrev && audio) {
     btnPrev.addEventListener("click", () => {
         audio.currentTime = 0;
         if (isPlaying) audio.play();
     });
 }
-
-audio.addEventListener("ended", () => {
-    audio.currentTime = 0;
-    audio.play();
-});
 
 if (btnPlay) btnPlay.addEventListener("click", togglePlay);
 
@@ -379,6 +389,7 @@ if (btnPlay) btnPlay.addEventListener("click", togglePlay);
 // RE-STRUKTUR: PEMUATAN MEMORI SINKRONISASI ANTAR HALAMAN
 // ========================================================
 window.addEventListener("DOMContentLoaded", () => {
+    if (!audio) return;
     const savedIndex = localStorage.getItem("jaten_track_index");
     const savedTime = localStorage.getItem("jaten_track_time");
     const savedPlaying = localStorage.getItem("jaten_track_playing");
@@ -390,26 +401,21 @@ window.addEventListener("DOMContentLoaded", () => {
         currentTrackIndex = 0;
     }
 
-    // 1. Muat data trek dasar terlebih dahulu
     loadTrack(currentTrackIndex);
 
-    // 2. Set posisi menit lagu lama sebelum diputar kembali
     if (savedTime !== null) {
         audio.currentTime = parseFloat(savedTime);
     }
     
-    // 3. Cek apakah di halaman sebelumnya status lagunya sedang menyala
     if (savedPlaying === "true") {
-        isPlaying = true; // Paksa status internal ke true terlebih dahulu
-        
+        isPlaying = true;
         audio.play()
             .then(() => {
                 if (trackDisc) trackDisc.style.animationPlayState = "running";
                 if (playIcon) playIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
             })
             .catch(e => {
-                // Kebijakan browser (Autoplay Policy) mengharuskan user klik 1x di halaman baru
-                console.log("Autoplay ditahan browser, menunggu interaksi user:", e);
+                console.log("Autoplay ditahan browser:", e);
                 isPlaying = false;
                 if (trackDisc) trackDisc.style.animationPlayState = "paused";
                 if (playIcon) playIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
@@ -418,9 +424,11 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 window.addEventListener("beforeunload", () => {
-    localStorage.setItem("jaten_track_index", currentTrackIndex);
-    localStorage.setItem("jaten_track_time", audio.currentTime);
-    localStorage.setItem("jaten_track_playing", isPlaying);
+    if (audio) {
+        localStorage.setItem("jaten_track_index", currentTrackIndex);
+        localStorage.setItem("jaten_track_time", audio.currentTime);
+        localStorage.setItem("jaten_track_playing", isPlaying);
+    }
 });
 
 // ========================================================
@@ -450,11 +458,9 @@ const currentHoyoPlayer = document.getElementById("hoyoPlayer");
 const trackDiscClick = document.getElementById("trackDisc");
 
 if (btnMinimize && currentHoyoPlayer) {
-    // Fungsi untuk mengubah status besar/kecil
     const toggleMinimize = () => {
         currentHoyoPlayer.classList.toggle("minimized");
         
-        // Ubah teks tombolnya, kalau mengecil jadi (+), kalau membesar jadi (minus)
         if (currentHoyoPlayer.classList.contains("minimized")) {
             btnMinimize.textContent = "+";
             btnMinimize.setAttribute("title", "Maximize Player");
@@ -464,13 +470,11 @@ if (btnMinimize && currentHoyoPlayer) {
         }
     };
 
-    // Klik tombol minus/plus untuk minimize
     btnMinimize.addEventListener("click", (e) => {
-        e.stopPropagation(); // Biar efek klik ga tabrakan
+        e.stopPropagation(); 
         toggleMinimize();
     });
 
-    // 💡 Tambahan: Kalau lagi mengecil, klik piringan hitamnya juga bisa buat membesarkan lagi
     if (trackDiscClick) {
         trackDiscClick.addEventListener("click", () => {
             if (currentHoyoPlayer.classList.contains("minimized")) {
