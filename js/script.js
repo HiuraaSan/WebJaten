@@ -482,4 +482,4 @@ if (btnLyrics && hoyoPlayer) {
             }, 300);
         }
     });
-}
+}}
