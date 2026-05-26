@@ -87,59 +87,17 @@ if (lightboxOverlay) {
         });
     }
 
-    // ========================================================
-// B. LOGIKA MODAL POP-UP LIGHTBOX (BERANDA & GALERI) - VERSI AMAN
-// ========================================================
-if (lightboxOverlay) {
-    function openPopup(imgSrc, titleText, descText) {
-        if (!lightboxImg || !lightboxTitle || !lightboxDesc) return; // pengaman tambahan
-        lightboxImg.setAttribute("src", imgSrc);
-        lightboxTitle.innerText = titleText;
-        lightboxDesc.innerText = descText;
-
-        lightboxOverlay.style.display = "flex";
-        setTimeout(() => {
-            lightboxOverlay.classList.add("show");
-        }, 10);
-    }
-
-    if (allGalleryItems.length > 0) {
-        allGalleryItems.forEach(item => {
-            item.addEventListener("click", () => {
-                // 💡 PENGAMAN: Cek dulu apakah elemen pembungkus dan gambarnya beneran ada
-                const imgWrapper = item.querySelector(".gallery-img-wrapper img");
-                const titleEl = item.querySelector(".gallery-info h3");
-                const pTag = item.querySelector(".gallery-info p");
-
-                if (imgWrapper && titleEl) {
-                    const imgSrc = imgWrapper.getAttribute("src");
-                    const titleText = titleEl.innerText;
-                    const descText = pTag ? pTag.innerText : "Dokumentasi resmi pengerjaan aset digital Desa Jaten.";
-                    openPopup(imgSrc, titleText, descText);
-                }
-            });
-        });
-    }
-
     if (allPotensiCards.length > 0) {
         allPotensiCards.forEach(card => {
             card.addEventListener("click", () => {
-                // 💡 PENGAMAN: Cek dulu sebelum mengambil attribute biar ga null-error di halaman lain
-                const imgWrapper = card.querySelector(".potensi-img-wrapper img");
-                const titleEl = card.querySelector("h3");
-                const pTag = card.querySelector("p");
-
-                if (imgWrapper && titleEl && pTag) {
-                    const imgSrc = imgWrapper.getAttribute("src");
-                    const titleText = titleEl.innerText;
-                    const descText = pTag.innerText;
-                    openPopup(imgSrc, titleText, descText);
-                }
+                const imgSrc = card.querySelector(".potensi-img-wrapper img").getAttribute("src");
+                const titleText = card.querySelector("h3").innerText;
+                const descText = card.querySelector("p").innerText;
+                
+                openPopup(imgSrc, titleText, descText);
             });
         });
     }
-
-    // ... sisa kode closeLightbox ke bawah tetap sama ya ...
 
     function closeLightbox() {
         lightboxOverlay.classList.remove("show");
@@ -482,4 +440,4 @@ if (btnLyrics && hoyoPlayer) {
             }, 300);
         }
     });
-}}
+}
