@@ -105,9 +105,11 @@
         </p>
     </footer>
 
+    <script src="js/script.js"></script>
     <div class="lightbox-overlay" id="lightboxOverlay">
         <div class="lightbox-window">
             <button class="lightbox-close" id="lightboxClose">&times;</button>
+            
             <div class="lightbox-content">
                 <div class="lightbox-left">
                     <img src="" alt="Preview Gambar" id="lightboxImg">
@@ -119,10 +121,10 @@
             </div>
         </div>
     </div>
-
     <div class="hoyo-player" id="hoyoPlayer">
         <audio id="main-audio" src="assets/music/song1.mp3"></audio>
 
+        <button class="btn-minimize" id="btnMinimize" title="Minimize Player">-</button>
         <div class="player-container">
             <div class="track-info">
                 <div class="track-disc" id="trackDisc">
@@ -136,7 +138,8 @@
                 </div>
             </div>
 
-            <div class="track-lyrics-container" id="lyricsContainer"></div>
+            <div class="track-lyrics-container" id="lyricsContainer">
+            </div>
 
             <div class="player-controls-wrapper">
                 <div class="player-controls">
@@ -165,7 +168,6 @@
             </div>
         </div>
     </div>
-
     <script src="js/script.js"></script>
 </body>
 </html>
