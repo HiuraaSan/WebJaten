@@ -86,7 +86,7 @@ if (lightboxOverlay) {
                 if (imgEl && titleEl) {
                     const imgSrc = imgEl.getAttribute("src");
                     const titleText = titleEl.innerText;
-                    const descText = pTag ? pTag.innerText : "Dokumentasi resmi pengerjaan aset digital Desa Jaten.";
+                    const descText = pTag ? pTag.innerText : "Dokumentasi pengerjaan aset digital Desa Jaten.";
                     openPopup(imgSrc, titleText, descText);
                 }
             });
