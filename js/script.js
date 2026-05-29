@@ -483,13 +483,3 @@ if (btnMinimize && currentHoyoPlayer) {
         });
     }
 }
-
-const welcomeScreen = document.getElementById("welcomeScreen");
-if (welcomeScreen) {
-    setTimeout(() => {
-        welcomeScreen.classList.add("fade-out");
-        setTimeout(() => {
-            welcomeScreen.remove();
-        }, 800);
-    }, 2000);
-}
